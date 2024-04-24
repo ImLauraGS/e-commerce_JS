@@ -78,6 +78,34 @@ var total = 0;
 function buy(id) {
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cart array
+
+    var productToAdd = products.find(product => product.id === id);
+
+    if (productToAdd) {
+    
+        var existingProduct = cart.find(item => item.id === id);
+
+        if (existingProduct) {
+            
+            existingProduct.quantity++;
+        } else {
+   
+            cart.push({
+                id: productToAdd.id,
+                name: productToAdd.name,
+                price: productToAdd.price,
+                quantity: 1
+            });
+        }
+
+        total += productToAdd.price;
+
+        console.log(cart); // Debugging
+
+        return cart;
+    } else {
+        return null;
+    }
 }
 
 // Exercise 2
