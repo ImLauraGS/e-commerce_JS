@@ -252,6 +252,7 @@
 								<th scope="col">Price</th>
 								<th scope="col">Qty.</th>
 								<th scope="col">Total <small>(with discount)</small></th>
+								<th scope ="col">Delete</th>
 							</tr>
 						</thead>
 						<tbody id="cart_list">
@@ -260,6 +261,7 @@
 								<td>$10.5</td>
 								<td>2</td>
 								<td>$21</td>
+								<td></td>
 							</tr>
 							<tr>
 								<th scope="row">Pasta</th>
@@ -275,8 +277,11 @@
 							</tr>
 						</tbody>
 					</table>
+					<div id="empty_cart_message" class="text-center fs-3" style="display: none;">
+						Your cart is empty. Please add items.
+					</div>
 					<div class="text-center fs-3">
-						Total: $<span id="total_price">100</span>
+						Total: $<span id="total_price">0</span>
 					</div>
 					<div class="text-center">
 						<a href="checkout.html" class="btn btn-primary m-3">Checkout</a>
