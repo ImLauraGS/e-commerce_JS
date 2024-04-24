@@ -1,5 +1,5 @@
 // If you have time, you can move this variable "products" to a json or js file and load the data in this js. It will look more professional
-var products = [
+const products = [
     {
         id: 1,
         name: 'cooking oil',
@@ -79,11 +79,11 @@ function buy(id) {
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cart array
 
-    var productToAdd = products.find(product => product.id === id);
+    let productToAdd = products.find(product => product.id === id);
 
     if (productToAdd) {
     
-        var existingProduct = cart.find(item => item.id === id);
+        let existingProduct = cart.find(item => item.id === id);
 
         if (existingProduct) {
             
@@ -100,7 +100,8 @@ function buy(id) {
 
         total += productToAdd.price;
 
-        console.log(cart); // Debugging
+        console.log(cart);
+        calculateTotal() // Debugging
 
         return cart;
     } else {
@@ -114,7 +115,6 @@ function cleanCart() {
     cart = [];
     total = 0;
     window.alert('Cart cleaned!');
-    window.location.reload();
 
     console.log(cart); // Debugging
 
@@ -124,7 +124,15 @@ function cleanCart() {
 
 // Exercise 3
 function calculateTotal() {
-    // Calculate total price of the cart using the "cartList" array
+
+    let totalPrice = 0;
+    cart.forEach(item => {
+        totalPrice += item.price * item.quantity;
+    });
+
+    console.log(totalPrice); // Debugging
+
+    return totalPrice;
 }
 
 // Exercise 4
