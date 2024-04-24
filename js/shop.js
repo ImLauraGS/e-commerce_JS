@@ -111,6 +111,15 @@ function buy(id) {
 // Exercise 2
 function cleanCart() {
 
+    cart = [];
+    total = 0;
+    window.alert('Cart cleaned!');
+    window.location.reload();
+
+    console.log(cart); // Debugging
+
+    return cart;
+
 }
 
 // Exercise 3
