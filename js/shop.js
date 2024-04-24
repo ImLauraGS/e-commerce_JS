@@ -99,9 +99,7 @@ function buy(id) {
         }
 
         total += productToAdd.price;
-
-        console.log(cart);
-        calculateTotal() // Debugging
+        updateCartCount()
 
         return cart;
     } else {
@@ -115,8 +113,7 @@ function cleanCart() {
     cart = [];
     total = 0;
     window.alert('Cart cleaned!');
-
-    console.log(cart); // Debugging
+    window.location.reload();
 
     return cart;
 
@@ -130,19 +127,84 @@ function calculateTotal() {
         totalPrice += item.price * item.quantity;
     });
 
-    console.log(totalPrice); // Debugging
-
     return totalPrice;
 }
 
 // Exercise 4
 function applyPromotionsCart() {
     // Apply promotions to each item in the array "cart"
+    
+    cart.forEach(item => {
+     
+        const product = products.find(p => p.id === item.id);
+        
+        if (product && product.offer) {
+            
+            if (product.offer.number && item.quantity >= product.offer.number) {
+               
+                const discountPercent = product.offer.percent / 100;
+                item.subtotalWithDiscount = (item.price * item.quantity) * (1 - discountPercent);
+            }
+        }
+    });
 }
 
 // Exercise 5
 function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
+
+    const cartList = document.getElementById('cart_list');
+
+    cartList.innerHTML = '';
+
+    cart.forEach(item => {
+
+        const row = document.createElement('tr');
+
+        const nameCell = document.createElement('th');
+        nameCell.textContent = item.name;
+        row.appendChild(nameCell);
+
+       
+        const priceCell = document.createElement('td');
+        priceCell.textContent = `$${item.price.toFixed(2)}`;
+        row.appendChild(priceCell);
+
+       
+        const quantityCell = document.createElement('td');
+        quantityCell.textContent = item.quantity;
+        row.appendChild(quantityCell);
+
+     
+        if (item.subtotalWithDiscount) {
+            const totalWithDiscountCell = document.createElement('td');
+            totalWithDiscountCell.textContent = `${item.subtotalWithDiscount.toFixed(2)}`;
+            row.appendChild(totalWithDiscountCell);
+        
+            const totalPriceElement = document.getElementById('total_price');
+            totalPriceElement.textContent = `${item.subtotalWithDiscount.toFixed(2)}`;
+        } else {
+            const totalCell = document.createElement('td');
+            totalCell.textContent = `${(item.price * item.quantity).toFixed(2)}`;
+            row.appendChild(totalCell);
+            const totalPriceElement = document.getElementById('total_price');
+            totalPriceElement.textContent = `${calculateTotal().toFixed(2)}`;
+        }
+
+        cartList.appendChild(row);
+    });
+
+}
+
+//BONUS 
+
+function updateCartCount() {
+    const countElement = document.getElementById('count_product');
+    let totalCount = 0;
+    cart.forEach(item => {
+        totalCount += item.quantity;
+    });
+    countElement.textContent = totalCount.toString();
 }
 
 
